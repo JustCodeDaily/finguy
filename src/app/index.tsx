@@ -1,22 +1,50 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Hello Expo</Text>
+    <>
+       <View style={styles.container}>
+      <Text>Hello world!</Text>
     </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: '#121212', // Dark background
+    paddingTop: 60,
     alignItems: 'center',
-    backgroundColor: '#000000', // Dark theme as per requirements
+    color: '#ffffff', // White text color
   },
-  text: {
+  header: {
     fontSize: 24,
     color: '#ffffff',
+    marginBottom: 40,
+    fontWeight: 'bold',
+  },
+  rowContainer: {
+    flexDirection: 'row',       // Arranges children in a row
+    justifyContent: 'space-between', // Spacing along the primary axis (row)
+    alignItems: 'center',       // Alignment along the cross axis (vertical)
+    width: '90%',               // Take up 90% of screen width
+    height: 150,                // Fixed height for the container
+    backgroundColor: '#1e1e1e', // Slightly lighter dark background
+    borderRadius: 12,
+    padding: 10,
+  },
+  box: {
+    width: 80,
+    height: 80,
+    justifyContent: 'center',   // Centers text vertically inside the box
+    alignItems: 'center',       // Centers text horizontally inside the box
+    borderRadius: 8,
+  },
+  boxText: {
+    color: '#ffffff',
+    fontSize: 28,
+    fontWeight: 'bold',
   },
 });
