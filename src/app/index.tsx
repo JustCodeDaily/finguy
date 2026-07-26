@@ -1,34 +1,13 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Day 2: Flexbox Layout</Text>
-      
-      {/* 
-        This is our flex container. 
-        Try changing flexDirection to 'column' and see what happens!
-        Try changing justifyContent to 'center', 'flex-start', or 'flex-end'.
-      */}
-      <View style={styles.rowContainer}>
-        
-        {/* Box 1 */}
-        <View style={[styles.box, { backgroundColor: '#FF6B6B' }]}>
-          <Text style={styles.boxText}>1</Text>
-        </View>
-        
-        {/* Box 2 */}
-        <View style={[styles.box, { backgroundColor: '#4ECDC4' }]}>
-          <Text style={styles.boxText}>2</Text>
-        </View>
-        
-        {/* Box 3 */}
-        <View style={[styles.box, { backgroundColor: '#45B7D1' }]}>
-          <Text style={styles.boxText}>3</Text>
-        </View>
-        
-      </View>
+    <>
+       <View style={styles.container}>
+      <Text>Hello world!</Text>
     </View>
+    </>
   );
 }
 
@@ -38,6 +17,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#121212', // Dark background
     paddingTop: 60,
     alignItems: 'center',
+    color: '#ffffff', // White text color
   },
   header: {
     fontSize: 24,
