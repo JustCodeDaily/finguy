@@ -1,50 +1,92 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 
+// Mock data for our expenses
+const EXPENSES = [
+  { id: '1', title: 'Groceries', amount: '₹500', category: 'Food', color: '#FF6B6B' },
+  { id: '2', title: 'Uber to office', amount: '₹250', category: 'Transport', color: '#45B7D1' },
+  { id: '3', title: 'Netflix', amount: '₹649', category: 'Subscriptions', color: '#FFA07A' },
+  { id: '4', title: 'Morning Coffee', amount: '₹150', category: 'Coffee', color: '#D4A574' },
+  { id: '5', title: 'Gym Membership', amount: '₹1500', category: 'Gym', color: '#95E1D3' },
+];
 
 export default function HomeScreen() {
-  return (
-    <>
-       <View style={styles.container}>
-      <Text>Hello world!</Text>
+  // This function renders a single row in the list
+  const renderExpenseItem = ({ item }: { item: typeof EXPENSES[0] }) => (
+    <View style={styles.row}>
+      <View style={[styles.categoryIndicator, { backgroundColor: item.color }]} />
+      <View style={styles.detailsContainer}>
+        <Text style={styles.titleText}>{item.title}</Text>
+        <Text style={styles.categoryText}>{item.category}</Text>
+      </View>
+      <Text style={styles.amountText}>{item.amount}</Text>
     </View>
-    </>
+  );
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.header}>Day 3: FlatList</Text>
+      
+      {/* 
+        FlatList is optimized for long lists. 
+        It only renders items that are currently visible on the screen.
+      */}
+      <FlatList
+        data={EXPENSES}
+        keyExtractor={(item) => item.id}
+        renderItem={renderExpenseItem}
+        contentContainerStyle={styles.listContent}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#121212', // Dark background
+    backgroundColor: '#121212',
     paddingTop: 60,
-    alignItems: 'center',
-    color: '#ffffff', // White text color
   },
   header: {
     fontSize: 24,
     color: '#ffffff',
-    marginBottom: 40,
     fontWeight: 'bold',
+    marginHorizontal: 20,
+    marginBottom: 20,
   },
-  rowContainer: {
-    flexDirection: 'row',       // Arranges children in a row
-    justifyContent: 'space-between', // Spacing along the primary axis (row)
-    alignItems: 'center',       // Alignment along the cross axis (vertical)
-    width: '90%',               // Take up 90% of screen width
-    height: 150,                // Fixed height for the container
-    backgroundColor: '#1e1e1e', // Slightly lighter dark background
+  listContent: {
+    paddingHorizontal: 20,
+    paddingBottom: 40,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#1e1e1e',
+    padding: 16,
     borderRadius: 12,
-    padding: 10,
+    marginBottom: 12,
   },
-  box: {
-    width: 80,
-    height: 80,
-    justifyContent: 'center',   // Centers text vertically inside the box
-    alignItems: 'center',       // Centers text horizontally inside the box
-    borderRadius: 8,
+  categoryIndicator: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    marginRight: 16,
   },
-  boxText: {
+  detailsContainer: {
+    flex: 1, // Takes up remaining space between indicator and amount
+  },
+  titleText: {
     color: '#ffffff',
-    fontSize: 28,
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  categoryText: {
+    color: '#aaaaaa',
+    fontSize: 12,
+  },
+  amountText: {
+    color: '#ffffff',
+    fontSize: 18,
     fontWeight: 'bold',
   },
 });
