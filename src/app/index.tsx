@@ -1,50 +1,28 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { Redirect } from 'expo-router';
+import { useAuthStore } from '@/store/authStore';
+import { colors } from '@/theme/colors';
 
+export default function Index() {
+  const session = useAuthStore((s) => s.session);
+  const initializing = useAuthStore((s) => s.initializing);
 
-export default function HomeScreen() {
-  return (
-    <>
-       <View style={styles.container}>
-      <Text>Hello world!</Text>
-    </View>
-    </>
-  );
+  if (initializing) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator color={colors.primary} size="large" />
+      </View>
+    );
+  }
+
+  return session ? <Redirect href="/(tabs)" /> : <Redirect href="/(auth)/login" />;
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#121212', // Dark background
-    paddingTop: 60,
+    backgroundColor: colors.background,
+    justifyContent: 'center',
     alignItems: 'center',
-    color: '#ffffff', // White text color
-  },
-  header: {
-    fontSize: 24,
-    color: '#ffffff',
-    marginBottom: 40,
-    fontWeight: 'bold',
-  },
-  rowContainer: {
-    flexDirection: 'row',       // Arranges children in a row
-    justifyContent: 'space-between', // Spacing along the primary axis (row)
-    alignItems: 'center',       // Alignment along the cross axis (vertical)
-    width: '90%',               // Take up 90% of screen width
-    height: 150,                // Fixed height for the container
-    backgroundColor: '#1e1e1e', // Slightly lighter dark background
-    borderRadius: 12,
-    padding: 10,
-  },
-  box: {
-    width: 80,
-    height: 80,
-    justifyContent: 'center',   // Centers text vertically inside the box
-    alignItems: 'center',       // Centers text horizontally inside the box
-    borderRadius: 8,
-  },
-  boxText: {
-    color: '#ffffff',
-    fontSize: 28,
-    fontWeight: 'bold',
   },
 });
