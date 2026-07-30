@@ -59,7 +59,7 @@ export const useDebtStore = create<DebtState>((set, get) => ({
   },
 }));
 
-export function sortDebts(debts: Debt[], option: DebtSortOption): Debt[] {
+export function sortDebts<T extends Debt>(debts: T[], option: DebtSortOption): T[] {
   const sorted = [...debts];
   if (option === 'rate_desc') {
     sorted.sort((a, b) => b.rate - a.rate);
