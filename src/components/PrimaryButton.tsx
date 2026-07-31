@@ -1,19 +1,30 @@
 import { ActivityIndicator, Pressable, StyleSheet, Text, View, ViewStyle } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { colors, radii } from '@/theme';
 
 type Props = {
   label: string;
   onPress: () => void;
   icon?: keyof typeof MaterialCommunityIcons.glyphMap;
+  materialIcon?: keyof typeof MaterialIcons.glyphMap;
   variant?: 'primary' | 'secondary';
   loading?: boolean;
   disabled?: boolean;
   style?: ViewStyle;
 };
 
-export function PrimaryButton({ label, onPress, icon, variant = 'primary', loading, disabled, style }: Props) {
+export function PrimaryButton({
+  label,
+  onPress,
+  icon,
+  materialIcon,
+  variant = 'primary',
+  loading,
+  disabled,
+  style,
+}: Props) {
   const isSecondary = variant === 'secondary';
+  const contentColor = isSecondary ? colors.primaryFixed : colors.onPrimaryFixed;
   return (
     <Pressable
       onPress={onPress}
@@ -27,17 +38,14 @@ export function PrimaryButton({ label, onPress, icon, variant = 'primary', loadi
       ]}
     >
       {loading ? (
-        <ActivityIndicator color={isSecondary ? colors.primary : '#FFFFFF'} />
+        <ActivityIndicator color={contentColor} />
       ) : (
         <View style={styles.content}>
-          <Text style={[styles.label, isSecondary && styles.secondaryLabel]}>{label}</Text>
-          {icon ? (
-            <MaterialCommunityIcons
-              name={icon}
-              size={18}
-              color={isSecondary ? colors.primary : '#FFFFFF'}
-              style={styles.icon}
-            />
+          <Text style={[styles.label, { color: contentColor }]}>{label}</Text>
+          {materialIcon ? (
+            <MaterialIcons name={materialIcon} size={18} color={contentColor} style={styles.icon} />
+          ) : icon ? (
+            <MaterialCommunityIcons name={icon} size={18} color={contentColor} style={styles.icon} />
           ) : null}
         </View>
       )}
@@ -53,8 +61,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   primary: {
-    backgroundColor: colors.primary,
-    boxShadow: `0px 8px 16px ${colors.primary}66`,
+    backgroundColor: colors.primaryFixed,
+    boxShadow: `0px 8px 16px rgba(0,220,229,0.25)`,
   },
   secondary: {
     backgroundColor: 'transparent',
@@ -73,12 +81,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   label: {
-    color: '#FFFFFF',
     fontSize: 16,
     fontWeight: '700',
-  },
-  secondaryLabel: {
-    color: colors.primary,
   },
   icon: {
     marginLeft: 8,

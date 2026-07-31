@@ -4,10 +4,10 @@ import { router } from 'expo-router';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { ScreenBackground } from '@/components/ScreenBackground';
 import { GlassCard } from '@/components/GlassCard';
-import { AppTextField } from '@/components/AppTextField';
+import { AuthField } from '@/components/AuthField';
 import { PrimaryButton } from '@/components/PrimaryButton';
 import { useAuthStore, DEMO_CREDENTIALS } from '@/store/auth';
-import { colors, spacing } from '@/theme';
+import { colors } from '@/theme';
 
 export default function LoginScreen() {
   const login = useAuthStore((state) => state.login);
@@ -38,37 +38,37 @@ export default function LoginScreen() {
         >
           <View style={styles.logoWrap}>
             <View style={styles.logoCircle}>
-              <MaterialCommunityIcons name="hexagon-outline" size={44} color={colors.primary} />
+              <MaterialCommunityIcons name="hexagon-outline" size={44} color={colors.primaryFixed} />
             </View>
           </View>
 
           <GlassCard style={styles.card}>
             <Text style={styles.heading}>Hallo!</Text>
 
-            <AppTextField
+            <AuthField
               label="Email Address"
               value={email}
               onChangeText={setEmail}
               placeholder="name@aura.com"
-              icon="email-outline"
+              icon="mail-outline"
               keyboardType="email-address"
               style={styles.field}
             />
 
-            <AppTextField
+            <AuthField
               label="Security Key"
               value={password}
               onChangeText={setPassword}
               placeholder="••••••••••••"
               icon="lock-outline"
               secureTextEntry={!showPassword}
-              rightIcon={showPassword ? 'eye-off-outline' : 'eye-outline'}
+              rightIcon={showPassword ? 'visibility-off' : 'visibility'}
               onRightIconPress={() => setShowPassword((prev) => !prev)}
               style={styles.field}
             />
 
             <View style={styles.forgotRow}>
-              <Text style={styles.link}>Forgot password?</Text>
+              <Text style={styles.link}>Forgot Password?</Text>
             </View>
 
             {error ? <Text style={styles.error}>{error}</Text> : null}
@@ -78,8 +78,8 @@ export default function LoginScreen() {
             </Text>
 
             <PrimaryButton
-              label="Log In"
-              icon="arrow-right"
+              label="Sign In"
+              materialIcon="arrow-forward"
               onPress={handleLogin}
               style={styles.submit}
             />
@@ -102,12 +102,12 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     justifyContent: 'center',
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.xl,
+    paddingHorizontal: 20,
+    paddingVertical: 32,
   },
   logoWrap: {
     alignItems: 'center',
-    marginBottom: spacing.lg,
+    marginBottom: 24,
   },
   logoCircle: {
     width: 88,
@@ -118,46 +118,51 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   card: {
-    padding: spacing.lg + 1,
+    padding: 24,
+    backgroundColor: colors.surfaceGlass,
+    borderColor: colors.surfaceGlassBorder,
+    borderRadius: 24,
+    boxShadow: '0px 25px 50px rgba(0,0,0,0.5)',
   },
   heading: {
-    color: colors.text,
-    fontSize: 28,
-    fontWeight: '700',
-    marginBottom: spacing.lg,
+    color: colors.onSurface,
+    fontSize: 24,
+    fontWeight: '600',
+    marginBottom: 24,
   },
   field: {
-    marginBottom: spacing.md,
+    marginBottom: 16,
   },
   forgotRow: {
     alignItems: 'flex-end',
-    marginBottom: spacing.md,
+    marginTop: 8,
+    marginBottom: 16,
   },
   link: {
-    color: colors.primary,
-    fontSize: 14,
+    color: colors.primaryFixed,
+    fontSize: 12,
     fontWeight: '600',
   },
   error: {
     color: colors.danger,
     fontSize: 13,
-    marginBottom: spacing.sm,
+    marginBottom: 8,
   },
   hint: {
     color: colors.textFaint,
     fontSize: 12,
-    marginBottom: spacing.md,
+    marginBottom: 16,
   },
   submit: {
-    marginTop: spacing.sm,
+    marginTop: 8,
   },
   footer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: spacing.lg,
+    marginTop: 24,
   },
   footerText: {
-    color: colors.textMuted,
-    fontSize: 14,
+    color: colors.onSurfaceVariant,
+    fontSize: 16,
   },
 });
