@@ -35,6 +35,10 @@ npm run reset-project
 
 This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 
+### MCP servers
+
+This project's `.mcp.json` configures the Stitch MCP server. Set the `STITCH_API_KEY` environment variable (the value is not stored in the repo) before Claude Code loads project MCP servers.
+
 ### Other setup steps
 
 - To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
